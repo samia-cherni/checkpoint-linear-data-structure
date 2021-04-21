@@ -1,0 +1,127 @@
+// solution1: array (distinct numbers)
+ALGORITHM Sum_distinct
+VAR
+    Set_1 : ARRAY_OF INTEGER[50]; 
+    Set_2 : ARRAY_OF INTEGER[50];
+    sum: INTEGER:=0;
+    unique:INTEGER;
+    count: INTEGER;
+BEGIN
+    Read(Set_1);
+    Read(Set_2);
+    FOR i FROM 0 TO Set_1.length-1 STEP 1  DO
+    unique:=0;
+    count:=0;
+        FOR j FROM 0 TO Set_2.length-1 STEP 1  DO
+            IF (Set_1[i]<>Set_2[j]) THEN
+                count:=count+1;
+            END_IF
+            IF (count=Set_2.length) THEN
+                unique:=Set_1[i];
+            END_IF
+        END_FOR
+        sum:=sum+unique;
+    END_FOR
+    FOR j FROM 0 TO Set_2.length-1 STEP 1  DO
+    unique:=0;
+    count:=0;
+        FOR i FROM 0 TO Set_1.length-1 STEP 1  DO
+            IF (Set_2[j]<>Set_1[i]) THEN
+                count:=count+1;
+            END_IF
+            IF (count=Set_1.length) THEN
+                unique:=Set_2[j];
+            END_IF
+        END_FOR
+        sum:=sum+unique;
+    END_FOR
+    Write(sum);
+END
+// solution 1 : array (overlapping numbers)
+ALGORITHM Sum_overlap
+VAR
+    Set_1 : ARRAY_OF INTEGER[50]; 
+    Set_2 : ARRAY_OF INTEGER[50]; 
+    sum: INTEGER:=0;
+    count:BOOLEAN;
+BEGIN
+    Read(Set_1);
+    Read(Set_2);
+    FOR i FROM 0 TO Set_1.length-1 STEP 1  DO
+    count:=false;
+        FOR j FROM 0 TO Set_2.length-1 STEP 1  DO
+            IF (Set_1[i]=Set_2[j]) THEN
+                count:=true;
+            END_IF
+        END_FOR
+        IF (count=true) THEN
+            sum:=sum+Set_1[i];
+        END_IF   
+    END_FOR
+    FOR j FROM 0 TO Set_2.length-1 STEP 1  DO
+    count:=false;
+        FOR i FROM 0 TO Set_1.length-1 STEP 1  DO
+            IF (Set_2[j]=Set_1[i]) THEN
+                count:=true;
+            END_IF
+        END_FOR
+        IF (count=true) THEN
+            sum:=sum+Set_2[j];
+        END_IF
+    END_FOR
+    Write(sum);
+END
+// solution 2: hash table (distinct numbers)
+ALGORITHM Sum_distinct_hash
+VAR
+    hset : HASH_TABLE<INTEGER, INTEGER>;
+    Set_1 : ARRAY_OF INTEGER[50]; 
+    Set_2 : ARRAY_OF INTEGER[50];
+    sum:INTEGER:=0;
+    count:INTEGER:=1;
+BEGIN
+    Read(Set_1);
+    FOR i FROM 0 TO Set_1.length-1 STEP 1  DO
+        hset_1.insert(Set_1[i],1)
+    END_FOR
+    Read(Set_2)
+    FOR i FROM 0 TO Set_2.length-1 STEP 1  DO
+        IF (hset.lookup(Set_2[i]=true)) THEN
+            hset.insert(Set_2[i],count+1);
+        ELSE
+            hset.insert(Set_2[i],1);    
+        END_IF
+    END_FOR
+    FOR i FROM 0 TO hset.length-1 STEP 1  DO
+        IF (hset.get[i]=1)) THEN
+            sum:=sum+hset.get[i];
+        END_IF
+    END_FOR
+    Write(sum);
+    // solution 2 : hash table (duplicates)
+ALGORITHM Sum_dup_hash
+VAR
+    hset : HASH_TABLE<INTEGER, INTEGER>;
+    Set_1 : ARRAY_OF INTEGER[50]; 
+    Set_2 : ARRAY_OF INTEGER[50];
+    sum:INTEGER:=0;
+    count:=1;
+BEGIN
+    Read(Set_1);
+    FOR i FROM 0 TO Set_1.length-1 STEP 1  DO
+        hset_1.insert(Set_1[i],1)
+    END_FOR
+    Read(Set_2)
+    FOR i FROM 0 TO Set_2.length-1 STEP 1  DO
+        IF (hset.lookup(Set_2[i]=true)) THEN
+            hset.insert(Set_2[i],count+1);
+        ELSE
+            hset.insert(Set_2[i],1);    
+        END_IF
+    END_FOR
+    FOR i FROM 0 TO hset.length-1 STEP 1  DO
+        IF (hset.get[i]=2)) THEN
+            sum:=sum+(hset.get[i]*2);
+        END_IF
+    END_FOR
+    Write(sum);
