@@ -98,6 +98,7 @@ BEGIN
         END_IF
     END_FOR
     Write(sum);
+END
     // solution 2 : hash table (duplicates)
 ALGORITHM Sum_dup_hash
 VAR
@@ -125,3 +126,4 @@ BEGIN
         END_IF
     END_FOR
     Write(sum);
+END
